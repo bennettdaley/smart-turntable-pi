@@ -16,11 +16,11 @@ def main():
         print(playing_status.json())
         if playing_status.json()["play_status"] == "playing":
             track_data = requests.get('https://smart-turntable-webapp.herokuapp.com/api/current_track')
-            print(track_data.json()["track_title"])
+            print(track_data.json())
             playing_pass_track_to_arduino(track_data.json())
         elif playing_status.json()["play_status"] == "paused":
             track_data = requests.get('https://smart-turntable-webapp.herokuapp.com/api/current_track')
-            print(track_data.json()["track_title"])
+            print(track_data.json())
             paused_pass_track_to_arduino(track_data.json())
 
 
