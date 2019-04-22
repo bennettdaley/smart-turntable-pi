@@ -15,6 +15,12 @@ def paused_pass_track_to_arduino(track_data):
     ser.write(b'0')
     return track_data
 
+def scanning(track_datas):
+    ser.write(b'2')
+    #call image processing and get new locations for each track id
+    #for num in track_locations:
+    #   request.post('https://smart-turntable-webapp.herokuapp.com/api/', json={"track_id":track_id, "start":new_start, "end":new_end})
+
 def main():
     previous_status = ""
     while(True):
@@ -34,7 +40,10 @@ def main():
                 previous_status = playing_status.json()["play_status"]
                 print(previous_status)
                 paused_pass_track_to_arduino(track_data.json())
-
+            elif playing_status.json()["play_status"] == "scanning":
+                track_ids = playing_status.json()["scan_track_ids"]
+                new_ids = scanning(track_ids)
+                request.post('https://smart-turntable-webapp.herokuapp.com/api/set_play_status', json={"is_playin": "paused"})
 
 if __name__ == "__main__":
     main()
