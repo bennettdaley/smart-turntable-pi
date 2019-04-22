@@ -1,0 +1,11 @@
+certifi==2019.3.9
+chardet==3.0.4
+future==0.17.1
+idna==2.8
+iso8601==0.1.12
+pkg-resources==0.0.0
+pyserial==3.4
+PyYAML==5.1
+requests==2.21.0
+serial==0.0.97
+urllib3==1.24.2
