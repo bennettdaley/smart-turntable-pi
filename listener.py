@@ -27,7 +27,7 @@ def scanning(track_ids):
     #ser.write(b'2')
     #call image processing and get new locations for each track id
     #for num in track_locations:
-    #   request.post('https://smart-turntable-webapp.herokuapp.com/api/', json={"track_id":track_id, "start":new_start, "end":new_end})
+    #request.post('https://smart-turntable-webapp.herokuapp.com/api/', json={"track_id":track_id, "start":new_start, "end":new_end})
 
 def main():
     previous_status = ""
