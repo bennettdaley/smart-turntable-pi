@@ -7,16 +7,24 @@ ser = serial.Serial('/dev/ttyACM0', 115200)
 time.sleep(2)
 def playing_pass_track_to_arduino(track_data):
     track_data["playing_status"] = "playing"
-    ser.write(b'1')
+    print('Track Number: ', track_data["number"])
+    print('Track ID: ', track_data["id"])
+    print('Starting Location: ', track_data["start"])
+    print('Ending Location: ', track_data["end"])
+    #ser.write(b'1')
     return track_data
 
 def paused_pass_track_to_arduino(track_data):
     track_data["playing_status"] = "paused"
-    ser.write(b'0')
+    print('Track Number: ', track_data["number"])
+    print('Track ID: ', track_data["id"])
+    print('Starting Location: ', track_data["start"])
+    print('Ending Location: ', track_data["end"])
+    #ser.write(b'0')
     return track_data
 
-def scanning(track_datas):
-    ser.write(b'2')
+def scanning(track_ids):
+    #ser.write(b'2')
     #call image processing and get new locations for each track id
     #for num in track_locations:
     #   request.post('https://smart-turntable-webapp.herokuapp.com/api/', json={"track_id":track_id, "start":new_start, "end":new_end})
@@ -43,7 +51,7 @@ def main():
             elif playing_status.json()["play_status"] == "scanning":
                 track_ids = playing_status.json()["scan_track_ids"]
                 new_ids = scanning(track_ids)
-                request.post('https://smart-turntable-webapp.herokuapp.com/api/set_play_status', json={"is_playin": "paused"})
+                request.post('https://smart-turntable-webapp.herokuapp.com/api/set_play_status', json={"is_playing": "paused", "set_track_data": None})
 
 if __name__ == "__main__":
     main()
