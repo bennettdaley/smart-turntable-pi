@@ -3,7 +3,7 @@ import time
 import serial
 from serial import Serial
 
-#ser = serial.Serial('/dev/ttyACM0', 115200)
+ser = serial.Serial('/dev/ttyACM0', 115200)
 time.sleep(2)
 def playing_pass_track_to_arduino(track_data):
     track_data["playing_status"] = "playing"
@@ -11,7 +11,8 @@ def playing_pass_track_to_arduino(track_data):
     print('Track ID: ', track_data["id"])
     print('Starting Location: ', track_data["start"])
     print('Ending Location: ', track_data["end"])
-    #ser.write(b'1')
+    track_str = str(track_data["start"])
+    ser.write(bytes(track_str, encoding='ASCII'))
     return track_data
 
 def paused_pass_track_to_arduino(track_data):
@@ -21,10 +22,11 @@ def paused_pass_track_to_arduino(track_data):
     print('Starting Location: ', track_data["start"])
     print('Ending Location: ', track_data["end"])
     #ser.write(b'0')
+    ser.write(b'-666')
     return track_data
 
 def scanning(track_ids):
-    #ser.write(b'2')
+    #do we need to write something to serial output when scanning for new tracks?
     #call image processing and get new locations for each track id
     num_tracks = len(track_ids)
     new_start = 100
